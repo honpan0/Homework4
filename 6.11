@@ -1,0 +1,79 @@
+// Bubble sort with improvements
+#include <stdio.h>
+#define SIZE 10 // array size
+
+// function prototypes
+void bubbleSort(int * const array, const int size); // sort an array of integers
+void printArray(const int *array, const int size); // print an array of integers
+
+// function main begins program execution
+int main(void)
+{
+    // initialize array a
+    int a[SIZE] = {2, 6, 4, 8, 10, 12, 89, 68, 45, 37};
+
+    printf("Data items in original order\n");
+    printArray(a, SIZE); // print original array
+
+    bubbleSort(a, SIZE); // sort the array
+
+    printf("\nData items in ascending order\n");
+    printArray(a, SIZE); // print sorted array
+
+    return 0; // indicates successful termination
+} // end main
+
+// sort an array of integers using bubble sort algorithm
+void bubbleSort(int * const array, const int size)
+{
+    void swap(int *element1Ptr, int *element2Ptr); // prototype
+    int pass; // pass counter
+    int comparison; // comparison counter
+    int swapped; // flag to indicate if any swap occurred
+
+    // loop to control number of passes
+    for (pass = 0; pass < size - 1; pass++)
+    {
+        swapped = 0; // reset swapped flag
+        // loop to control number of comparisons per pass
+        for (comparison = 0; comparison < size - 1 - pass; comparison++)
+        {
+            // compare adjacent elements and swap them if first
+            // element is greater than second element
+            if (array[comparison] > array[comparison + 1])
+            {
+                swap(&array[comparison], &array[comparison + 1]);
+                swapped = 1; // set swapped flag
+            } // end if
+        } // end inner for
+
+        // if no swap occurred in the current pass, then the array is already sorted
+        if (swapped == 0)
+        {
+            break; // exit the loop
+        } // end if
+    } // end outer for
+} // end function bubbleSort
+
+// swap values at memory locations to which element1Ptr and
+// element2Ptr point
+void swap(int *element1Ptr, int *element2Ptr)
+{
+    int hold = *element1Ptr; // temporary holding variable
+    *element1Ptr = *element2Ptr;
+    *element2Ptr = hold;
+} // end function swap
+
+// print an array of integers
+void printArray(const int *array, const int size)
+{
+    int i; // counter
+
+    // loop through array
+    for (i = 0; i < size; i++)
+    {
+        printf("%d ", array[i]);
+    } // end for
+
+    printf("\n"); // outputs a newline
+} // end function printArray
